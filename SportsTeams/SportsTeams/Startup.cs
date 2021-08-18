@@ -2,10 +2,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SportsTeams.Model;
+using SportsTeams.Services;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +29,22 @@ namespace SportsTeams
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /*services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+            });*/
+
             services.AddControllers();
 
             services.AddSwaggerGen();
+
+            services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:SportsTeamsDb"]));
+
+            services.AddScoped<ICountryService, CountryService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

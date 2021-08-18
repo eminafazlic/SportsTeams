@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SportsTeams.Controllers
+namespace SportsTeams.Controllers.v2
 {
     [ApiController]
     [Route("[controller]")]
+    /*[ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]*/
     public class TeamsController : ControllerBase
     {
      
