@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SportsTeams.Model;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,9 @@ namespace SportsTeams.Services
 
         public async Task<IEnumerable<Country>> Get(CountryParameters countryParameters)
         {
-            return _appDbContext.Countries.OrderBy(o => o.Name).ThenBy(i => i.Id)
+            return await _appDbContext.Countries.OrderBy(o => o.Name).ThenBy(i => i.Id)
                 .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
-                .Take(countryParameters.PageSize).ToList();
+                .Take(countryParameters.PageSize).ToListAsync();
         }
 
         public async Task<Country> GetById(int id)
@@ -35,12 +36,24 @@ namespace SportsTeams.Services
             await _appDbContext.Countries.AddAsync(country);
             await _appDbContext.SaveChangesAsync();
         }
-        public Country Update(int id, Country country)
+        public async Task Update(int id, Country country)
         {
-            /*var current = _countries.FirstOrDefault(x => x.Id == id);
-            current.Name = country.Name;
-            return current;*/
-            return country;
+            var item= await _appDbContext.Countries.FindAsync(id);
+            if (item != null)
+            {
+                // promjene itema ... item.Name = country.Name; npr ?
+            }
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        { 
+            var item = await _appDbContext.Countries.FindAsync(id);
+            if (item == null)
+            {
+                // return not found or smth
+            }
+            _appDbContext.Countries.Remove(item);
         }
     }
 }

@@ -43,6 +43,7 @@ namespace SportsTeams
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:SportsTeamsDb"]));
 
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ITeamService, TeamService>();
 
 
         }

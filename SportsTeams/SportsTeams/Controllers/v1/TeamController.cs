@@ -14,24 +14,24 @@ namespace SportsTeams.Controllers.v1
 
     [ApiController]
     [Route("[controller]")]
-    public class CountryController : ControllerBase
+    public class TeamController : ControllerBase
     {
-        public ICountryService _countryService { get; set; }
+        public ITeamService _teamService { get; set; }
 
-        public CountryController(ICountryService countryService)
+        public TeamController(ITeamService teamService)
         {
-            _countryService = countryService;
+            _teamService = teamService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]CountryParameters countryParameters)
         {
-            return Ok(await _countryService.Get(countryParameters));
+            return Ok(await _teamService.Get(countryParameters));
         }
         [HttpGet(template: "{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var item = await _countryService.GetById(id);
+            var item = await _teamService.GetById(id);
             if(item==null)
             {
                 return NotFound();
@@ -39,33 +39,30 @@ namespace SportsTeams.Controllers.v1
             return Ok(item);
         }
         [HttpPost]
-        public async Task<IActionResult> Insert(Country country)
+        public async Task<IActionResult> Insert(Team team)
         {
-            if (country == null)
+            if (team == null)
             {
                 return BadRequest();
             }
-            await _countryService.Insert(country);
-            return CreatedAtRoute("GetCountries", new { Controller = "Country", id = country.Id }, country);
+            await _teamService.Insert(team);
+            return CreatedAtRoute("GetCountries", new { Controller = "Country", id = team.Id }, team);
         }
         [HttpPut(template: "{id}")]
-        public async Task<IActionResult> Update(int id, Country country)
+        public async Task<IActionResult> Update(int id, Team team)
         {
-            if (country == null)
+            if (team == null)
             {
                 return BadRequest();
             }
-            await _countryService.Update(id, country);
+            await _teamService.Update(id, team);
             return Ok();
-            //ovo nije okej jer šta ako država nije pronađena po id-u? NotFounddd
-
-
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _countryService.Delete(id);
+            await _teamService.Delete(id);
             return NoContent();
         }
     }

@@ -14,7 +14,11 @@ namespace SportsTeams.Model
         public Country Country { get; set; }
         public int Founded { get; set; } // godina osnivanja
         public string HomeGround { get; set; } // domaći stadion
+        public int StadiumCapacity { get; set; }
         public int MarketValue { get; set; }
         public int NumberOfPlayers { get; set; }
+        public string HeadCoach { get; set; }
+        public string President { get; set; }
+        public string League { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace SportsTeams.Services
         public Task<Country> GetById(int id);
         public Task Insert(Country country);
 
-        public Country Update(int id, Country country);
+        public Task Update(int id, Country country);
+        public Task Delete(int id);
     }
 }
