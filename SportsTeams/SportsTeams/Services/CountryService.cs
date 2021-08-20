@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SportsTeams.Database;
 using SportsTeams.Model;
+using SportsTeams.Model.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,38 +15,42 @@ namespace SportsTeams.Services
     {
 
         private readonly AppDbContext _appDbContext;
-        //private static List<Country> _countries;
+        protected readonly IMapper _mapper;
 
-        public CountryService(AppDbContext appDbContext)
+        public CountryService(AppDbContext appDbContext, IMapper mapper)
         {
             _appDbContext = appDbContext;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Country>> Get(CountryParameters countryParameters)
+        public async Task<IEnumerable<Model.Country>> Get(CountryParameters countryParameters)
         {
-            return await _appDbContext.Countries.OrderBy(o => o.Name).ThenBy(i => i.Id)
+            return await _appDbContext.Countries.OrderBy(o => o.Name)
                 .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
-                .Take(countryParameters.PageSize).ToListAsync();
+                .Take(countryParameters.PageSize)
+                .Select(x => _mapper.Map<Model.Country>(x))
+                .ToListAsync();
         }
 
-        public async Task<Country> GetById(int id)
+        public async Task<Model.Country> GetById(int id)
         {
-            return await _appDbContext.Countries.FindAsync(id);
+            var item = await _appDbContext.Countries.FindAsync(id);
+            return _mapper.Map<Model.Country>(item);
         }
 
-        public async Task Insert(Country country)
+        public async Task<Model.Country> Insert(CountryInsertRequest request)
         {
-            await _appDbContext.Countries.AddAsync(country);
+            var item = _mapper.Map<Database.Country>(request);
+            await _appDbContext.Countries.AddAsync(item);
             await _appDbContext.SaveChangesAsync();
+            return _mapper.Map<Model.Country>(item);
         }
-        public async Task Update(int id, Country country)
+        public async Task<Model.Country> Update(int id, CountryUpdateRequest request)
         {
-            var item= await _appDbContext.Countries.FindAsync(id);
-            if (item != null)
-            {
-                // promjene itema ... item.Name = country.Name; npr ?
-            }
+            var item = await _appDbContext.Countries.FindAsync(id);
+            _mapper.Map(request, item);
             await _appDbContext.SaveChangesAsync();
+            return _mapper.Map<Model.Country>(item);
         }
 
         public async Task Delete(int id)

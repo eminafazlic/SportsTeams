@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportsTeams.Model;
+using SportsTeams.Database;
+using SportsTeams.Model.Requests;
 using SportsTeams.Services;
 using System;
 using System.Collections.Generic;
@@ -39,27 +40,14 @@ namespace SportsTeams.Controllers.v1
             return Ok(item);
         }
         [HttpPost]
-        public async Task<IActionResult> Insert(Country country)
+        public async Task<IActionResult> Insert([FromBody] CountryInsertRequest request)
         {
-            if (country == null)
-            {
-                return BadRequest();
-            }
-            await _countryService.Insert(country);
-            return CreatedAtRoute("GetCountries", new { Controller = "Country", id = country.Id }, country);
+            return Created("~/api/country", await _countryService.Insert(request));   
         }
         [HttpPut(template: "{id}")]
-        public async Task<IActionResult> Update(int id, Country country)
+        public async Task<IActionResult> Update(int id, CountryUpdateRequest request)
         {
-            if (country == null)
-            {
-                return BadRequest();
-            }
-            await _countryService.Update(id, country);
-            return Ok();
-            //ovo nije okej jer šta ako država nije pronađena po id-u? NotFounddd
-
-
+            return Ok(await _countryService.Update(id, request));
         }
 
         [HttpDelete("{id}")]

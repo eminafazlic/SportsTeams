@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportsTeams.Database;
 using SportsTeams.Model;
+using SportsTeams.Model.Requests;
 using SportsTeams.Services;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,7 @@ namespace SportsTeams.Controllers.v1
         {
             return Ok(await _teamService.Get(countryParameters));
         }
+
         [HttpGet(template: "{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -39,23 +42,18 @@ namespace SportsTeams.Controllers.v1
             return Ok(item);
         }
         [HttpPost]
-        public async Task<IActionResult> Insert(Team team)
+        public async Task<IActionResult> Insert([FromBody] TeamInsertRequest request)
         {
-            if (team == null)
-            {
-                return BadRequest();
-            }
-            await _teamService.Insert(team);
-            return CreatedAtRoute("GetCountries", new { Controller = "Country", id = team.Id }, team);
+            return Created("~/api/team", await _teamService.Insert(request));
         }
         [HttpPut(template: "{id}")]
-        public async Task<IActionResult> Update(int id, Team team)
+        public async Task<IActionResult> Update(int id, TeamUpdateRequest request)
         {
-            if (team == null)
+            if (request == null)
             {
                 return BadRequest();
             }
-            await _teamService.Update(id, team);
+            await _teamService.Update(id, request);
             return Ok();
         }
 

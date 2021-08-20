@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace SportsTeams.Model
+namespace SportsTeams.Model.Requests
 {
-    public class Team
+    public class TeamUpdateRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public byte[]? Picture { get; set; }
+        public byte[] Picture { get; set; }
         public int CountryId { get; set; }
         public Country Country { get; set; }
-        public int Founded { get; set; } // godina osnivanja
-        public string HomeGround { get; set; } // domaći stadion
+        public int Founded { get; set; }
+        public string HomeGround { get; set; }
         public int StadiumCapacity { get; set; }
         public int MarketValue { get; set; }
         public int NumberOfPlayers { get; set; }
