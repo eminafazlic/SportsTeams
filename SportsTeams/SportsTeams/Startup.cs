@@ -37,12 +37,10 @@ namespace SportsTeams
             //services.AddControllers();
             services.AddMvc();
             services.AddApiVersioning(o=> 
-                { o.AssumeDefaultVersionWhenUnspecified = true; 
-                    o.DefaultApiVersion = new ApiVersion(1, 0); 
-                    
-                });
-
-
+            { 
+                o.AssumeDefaultVersionWhenUnspecified = true; 
+                o.DefaultApiVersion = new ApiVersion(1, 0); 
+            });
 
             services.AddSwaggerGen(o=> 
             {

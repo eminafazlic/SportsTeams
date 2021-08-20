@@ -14,10 +14,10 @@ namespace SportsTeams.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]*/
 
-    [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
     [ApiExplorerSettings(GroupName = "v1")]
+    [ApiController]
     public class CountryController : ControllerBase
     {
         public ICountryService _countryService { get; set; }
