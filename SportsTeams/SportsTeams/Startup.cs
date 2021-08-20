@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using SportsTeams.Database;
 using SportsTeams.Model;
 using SportsTeams.Services;
@@ -31,16 +32,37 @@ namespace SportsTeams
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddApiVersioning(options =>
+
+
+            //services.AddControllers();
+            services.AddMvc();
+            services.AddApiVersioning(o=> 
+                { o.AssumeDefaultVersionWhenUnspecified = true; 
+                    o.DefaultApiVersion = new ApiVersion(1, 0); 
+                    
+                });
+
+
+
+            services.AddSwaggerGen(o=> 
             {
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.ReportApiVersions = true;
-            });*/
+                o.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API V1 Title",
+                    Description = "API V1 Description"
+                });
 
-            services.AddControllers();
-
-            services.AddSwaggerGen();
+                o.SwaggerDoc("v2", new OpenApiInfo
+                {
+                    Version = "v2",
+                    Title = "API V2 Title",
+                    Description = "API V2 Description"
+                });
+                o.ResolveConflictingActions(a => a.First());
+                o.OperationFilter<RemoveVersionFromParameter>();
+                o.DocumentFilter<ReplaceVersionWithExactValueInPath>();
+            });
 
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:SportsTeamsDb"]));
 
@@ -66,7 +88,8 @@ namespace SportsTeams
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint($"/swagger/v1/swagger.json", "API V1");
+                c.SwaggerEndpoint($"/swagger/v2/swagger.json", "API V2");
                
             });
 
