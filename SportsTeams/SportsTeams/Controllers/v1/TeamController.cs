@@ -26,41 +26,36 @@ namespace SportsTeams.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]CountryParameters countryParameters)
+        public async Task<IActionResult> GetAllTeams([FromQuery]CountryParameters countryParameters)
         {
-            return Ok(await _teamService.Get(countryParameters));
+            return Ok(await _teamService.GetAllTeams(countryParameters));
         }
 
         [HttpGet(template: "{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetTeamById(int id)
         {
-            var item = await _teamService.GetById(id);
-            if(item==null)
-            {
-                return NotFound();
-            }
-            return Ok(item);
+            return Ok(await _teamService.GetTeamById(id));
+        }
+        [HttpGet(template: "{countryid}")]
+        public async Task<IActionResult> GetTeamsByCountryId([FromQuery] CountryParameters countryParameters, int countryId)
+        {
+            return Ok(await _teamService.GetTeamsByCountryId(countryParameters, countryId));
         }
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody] TeamInsertRequest request)
+        public async Task<IActionResult> InsertTeam([FromBody] TeamInsertRequest request)
         {
-            return Created("~/api/team", await _teamService.Insert(request));
+            return Created("~/api/team", await _teamService.InsertTeam(request));
         }
         [HttpPut(template: "{id}")]
-        public async Task<IActionResult> Update(int id, TeamUpdateRequest request)
+        public async Task<IActionResult> UpdateTeam(int id, TeamUpdateRequest request)
         {
-            if (request == null)
-            {
-                return BadRequest();
-            }
-            await _teamService.Update(id, request);
-            return Ok();
+            return Ok(await _teamService.UpdateTeam(id, request));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteTeam(int id)
         {
-            await _teamService.Delete(id);
+            await _teamService.DeleteTeam(id);
             return NoContent();
         }
     }

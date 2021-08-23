@@ -21,11 +21,8 @@ namespace SportsTeams.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Model.Team>> Get(CountryParameters countryParameters)
+        public async Task<IEnumerable<Model.Team>> GetAllTeams(CountryParameters countryParameters)
         {
-            /*return await _appDbContext.Teams.OrderBy(o => o.Name).ThenBy(i => i.Id)
-                .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
-                .Take(countryParameters.PageSize).ToListAsync();*/
 
             return await _appDbContext.Teams.OrderBy(o => o.Name)
                 .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
@@ -34,20 +31,31 @@ namespace SportsTeams.Services
                 .ToListAsync();
         }
 
-        public async Task<Model.Team> GetById(int id)
+        public async Task<IEnumerable<Model.Team>> GetTeamsByCountryId(CountryParameters countryParameters, int countryId)
+        {
+            return await _appDbContext.Teams
+               .Where(y => y.CountryId == countryId)
+               .OrderBy(o => o.Name)
+               .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
+               .Take(countryParameters.PageSize)
+               .Select(x => _mapper.Map<Model.Team>(x))
+               .ToListAsync();
+        }
+
+        public async Task<Model.Team> GetTeamById(int id)
         {
             var item = await _appDbContext.Teams.FindAsync(id);
             return _mapper.Map<Model.Team>(item);
         }
 
-        public async Task<Model.Team> Insert(TeamInsertRequest request)
+        public async Task<Model.Team> InsertTeam(TeamInsertRequest request)
         {
             var item = _mapper.Map<Database.Team>(request);
             await _appDbContext.Teams.AddAsync(item);
             await _appDbContext.SaveChangesAsync();
             return _mapper.Map<Model.Team>(item);
         }
-        public async Task<Model.Team> Update(int id, TeamUpdateRequest request)
+        public async Task<Model.Team> UpdateTeam(int id, TeamUpdateRequest request)
         {
             var item = await _appDbContext.Countries.FindAsync(id);
             _mapper.Map(request, item);
@@ -55,7 +63,7 @@ namespace SportsTeams.Services
             return _mapper.Map<Model.Team>(item);
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteTeam(int id)
         {
             var item = await _appDbContext.Teams.FindAsync(id);
             if (item == null)

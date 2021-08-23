@@ -9,8 +9,11 @@ namespace SportsTeams.Model.Requests
     {
         public int Id { get; set; }
         [Required(AllowEmptyStrings = false)]
+        [MinLength(3)]
+        [MaxLength(30)]
         public string Name { get; set; }
         [Required(AllowEmptyStrings = false)]
+        [MaxLength(4)]
         public string Abbreviation { get; set; }
         [Required(AllowEmptyStrings = false)]
         public byte[] Picture { get; set; }

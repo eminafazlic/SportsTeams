@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SportsTeams.Database;
+using SportsTeams.Filters;
 using SportsTeams.Model.Requests;
 using SportsTeams.Services;
 using System;
@@ -30,36 +31,31 @@ namespace SportsTeams.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]CountryParameters countryParameters)
+        public async Task<IActionResult> GetAllCountries([FromQuery]CountryParameters countryParameters)
         {
-            _logger.LogInformation($"Izvršava se {nameof(Get).ToString()} metoda sa parametrima {nameof(countryParameters.PageNumber).ToString()} i {nameof(countryParameters.PageSize).ToString()} i modelom {nameof(CountryParameters).ToString()}");
-            return Ok(await _countryService.Get(countryParameters));
+            _logger.LogInformation($"Izvršava se {nameof(GetAllCountries).ToString()} metoda sa parametrima {nameof(countryParameters.PageNumber).ToString()} i {nameof(countryParameters.PageSize).ToString()} i modelom {nameof(CountryParameters).ToString()}");
+            return Ok(await _countryService.GetAllCountries(countryParameters));
         }
         [HttpGet(template: "{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetCountryById(int id)
         {
-            var item = await _countryService.GetById(id);
-            if(item==null)
-            {
-                return NotFound();
-            }
-            return Ok(item);
+            return Ok(await _countryService.GetCountryById(id));
         }
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody] CountryInsertRequest request)
+        public async Task<IActionResult> InsertCountry([FromBody] CountryInsertRequest request)
         {
-            return Created("~/api/country", await _countryService.Insert(request));   
+            return Created("~/api/country", await _countryService.InsertCountry(request));   
         }
         [HttpPut(template: "{id}")]
-        public async Task<IActionResult> Update(int id, CountryUpdateRequest request)
+        public async Task<IActionResult> UpdateCountry(int id, CountryUpdateRequest request)
         {
-            return Ok(await _countryService.Update(id, request));
+            return Ok(await _countryService.UpdateCountry(id, request));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteCountry(int id)
         {
-            await _countryService.Delete(id);
+            await _countryService.DeleteCountry(id);
             return NoContent();
         }
     }

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SportsTeams.Services
 {
-    public interface ICountryService
+    public interface ICountryService 
     {
-        public Task<IEnumerable<Model.Country>> Get(CountryParameters countryParameters);
-        public Task<Model.Country> GetById(int id);
-        public Task<Model.Country> Insert(CountryInsertRequest request);
-        public Task<Model.Country> Update(int id, CountryUpdateRequest request);
-        public Task Delete(int id);
+        public Task<IEnumerable<Model.Country>> GetAllCountries(CountryParameters countryParameters);
+        public Task<Model.Country> GetCountryById(int id);
+        public Task<Model.Country> InsertCountry(CountryInsertRequest request);
+        public Task<Model.Country> UpdateCountry(int id, CountryUpdateRequest request);
+        public Task DeleteCountry(int id);
     }
 }

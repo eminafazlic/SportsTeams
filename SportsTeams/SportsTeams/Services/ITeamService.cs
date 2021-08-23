@@ -10,11 +10,12 @@ namespace SportsTeams.Services
 {
     public interface ITeamService
     {
-        public Task<IEnumerable<Model.Team>> Get(CountryParameters countryParameters);
-        public Task<Model.Team> GetById(int id);
-        public Task<Model.Team> Insert(TeamInsertRequest request);
+        public Task<IEnumerable<Model.Team>> GetAllTeams(CountryParameters countryParameters);
+        public Task<Model.Team> GetTeamById(int id);
+        public Task<IEnumerable<Model.Team>> GetTeamsByCountryId(CountryParameters countryParameters, int countryId);
+        public Task<Model.Team> InsertTeam(TeamInsertRequest request);
 
-        public Task<Model.Team> Update(int id, TeamUpdateRequest request);
-        public Task Delete(int id);
+        public Task<Model.Team> UpdateTeam(int id, TeamUpdateRequest request);
+        public Task DeleteTeam(int id);
     }
 }
