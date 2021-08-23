@@ -55,8 +55,15 @@ namespace SportsTeams.Controllers.v1
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            await _countryService.DeleteCountry(id);
-            return NoContent();
+            try
+            {
+                await _countryService.DeleteCountry(id);
+                return NoContent();
+            }
+            catch
+            {
+                return NotFound($"Država s ID-jem {id} nije pronađena");
+            }
         }
     }
     

@@ -42,6 +42,20 @@ namespace SportsTeams.Services
             return list;
         }
 
+        public async Task<IEnumerable<Model.Country>> GetAllCountriesSortedById(CountryParameters countryParameters)
+        {
+            var list = await _appDbContext.Countries.OrderBy(o => o.Id)
+                .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
+                .Take(countryParameters.PageSize)
+                .Select(x => _mapper.Map<Model.Country>(x))
+                .ToListAsync();
+            if (list == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            return list;
+        }
+
         public async Task<Model.Country> GetCountryById(int id)
         {
             var item = await _appDbContext.Countries.FindAsync(id);

@@ -36,7 +36,7 @@ namespace SportsTeams.Controllers.v1
         {
             return Ok(await _teamService.GetTeamById(id));
         }
-        [HttpGet(template: "{countryid}")]
+        [HttpGet(template: "countryid={countryId}")]
         public async Task<IActionResult> GetTeamsByCountryId([FromQuery] CountryParameters countryParameters, int countryId)
         {
             return Ok(await _teamService.GetTeamsByCountryId(countryParameters, countryId));

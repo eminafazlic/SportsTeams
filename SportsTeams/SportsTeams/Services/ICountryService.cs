@@ -11,6 +11,7 @@ namespace SportsTeams.Services
     public interface ICountryService 
     {
         public Task<IEnumerable<Model.Country>> GetAllCountries(CountryParameters countryParameters);
+        public Task<IEnumerable<Model.Country>> GetAllCountriesSortedById(CountryParameters countryParameters);
         public Task<Model.Country> GetCountryById(int id);
         public Task<Model.Country> InsertCountry(CountryInsertRequest request);
         public Task<Model.Country> UpdateCountry(int id, CountryUpdateRequest request);

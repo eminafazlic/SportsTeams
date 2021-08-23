@@ -30,6 +30,15 @@ namespace SportsTeams.Services
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
         }
+        public async Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(CountryParameters countryParameters)
+        {
+
+            return await _appDbContext.Teams.OrderBy(o => o.Id)
+                .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
+                .Take(countryParameters.PageSize)
+                .Select(x => _mapper.Map<Model.Team>(x))
+                .ToListAsync();
+        }
 
         public async Task<IEnumerable<Model.Team>> GetTeamsByCountryId(CountryParameters countryParameters, int countryId)
         {
