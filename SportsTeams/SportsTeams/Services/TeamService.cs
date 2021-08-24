@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SportsTeams.EF;
+using System.Web.Http;
+using System.Net;
 
 namespace SportsTeams.Services
 {
@@ -67,10 +69,21 @@ namespace SportsTeams.Services
         }
         public async Task<Model.Team> UpdateTeam(int id, TeamUpdateRequest request)
         {
-            var item = await _appDbContext.Countries.FindAsync(id);
-            _mapper.Map(request, item);
-            await _appDbContext.SaveChangesAsync();
-            return _mapper.Map<Model.Team>(item);
+            var item = await _appDbContext.Teams.FindAsync(id);
+            if(item==null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            try
+            {
+                _mapper.Map(request, item);
+                await _appDbContext.SaveChangesAsync();
+                return _mapper.Map<Model.Team>(item);
+            }
+            catch
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
         }
 
         public async Task DeleteTeam(int id)

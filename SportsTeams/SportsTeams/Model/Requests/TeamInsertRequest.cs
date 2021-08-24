@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportsTeams.Filters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -12,6 +13,7 @@ namespace SportsTeams.Model.Requests
         /*[Required(AllowEmptyStrings = false)]
         public byte[] Picture { get; set; }*/
         [Required(AllowEmptyStrings = false)]
+        [Range(1, int.MaxValue)]
         public int CountryId { get; set; }
         [Required(AllowEmptyStrings = false)]
         public int Founded { get; set; }
