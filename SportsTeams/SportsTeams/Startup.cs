@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SportsTeams.Database;
 using SportsTeams.EF;
+using SportsTeams.Filters;
+using SportsTeams.GlobalExceptionHandling;
 using SportsTeams.Model;
 using SportsTeams.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -92,6 +94,7 @@ namespace SportsTeams
                
             });
 
+            app.UseMiddleware<GlobalExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 

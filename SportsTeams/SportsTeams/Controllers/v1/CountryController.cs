@@ -32,7 +32,7 @@ namespace SportsTeams.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCountries([FromQuery]PageParameters pageParameters)
+        public async Task<IActionResult> GetAllCountries([FromQuery] PageParameters pageParameters)
         {
             _logger.LogInformation($"Izvršava se {nameof(GetAllCountries).ToString()} metoda sa parametrima {nameof(pageParameters.PageNumber).ToString()} i {nameof(pageParameters.PageSize).ToString()} i modelom {nameof(PageParameters).ToString()}");
             return Ok(await _countryService.GetAllCountries(pageParameters));
@@ -41,11 +41,13 @@ namespace SportsTeams.Controllers.v1
         public async Task<IActionResult> GetCountryById(int id)
         {
             return Ok(await _countryService.GetCountryById(id));
+
         }
         [HttpPost]
         public async Task<IActionResult> InsertCountry([FromBody] CountryInsertRequest request)
         {
-            return Created("~/api/country", await _countryService.InsertCountry(request));   
+            return Created("~/api/country", await _countryService.InsertCountry(request));
+
         }
         [HttpPut(template: "{id}")]
         public async Task<IActionResult> UpdateCountry(int id, CountryUpdateRequest request)
@@ -56,15 +58,8 @@ namespace SportsTeams.Controllers.v1
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            try
-            {
-                await _countryService.DeleteCountry(id);
-                return NoContent();
-            }
-            catch
-            {
-                return NotFound($"Država s ID-jem {id} nije pronađena");
-            }
+            await _countryService.DeleteCountry(id);
+            return NoContent();
         }
     }
     

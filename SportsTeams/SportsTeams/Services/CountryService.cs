@@ -60,14 +60,15 @@ namespace SportsTeams.Services
         public async Task<Model.Country> GetCountryById(int id)
         {
             var item = await _appDbContext.Countries.FindAsync(id);
-            if(item==null)
+            if (item == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                /*var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
                     Content = new StringContent(string.Format($"Država s ID-jem {id} nije pronađena")),
                     ReasonPhrase = "ID nije pronađen"
                 };
-                throw new HttpResponseException(resp);
+                throw new HttpResponseException(resp);*/
+                throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             return _mapper.Map<Model.Country>(item);
         }
@@ -92,13 +93,8 @@ namespace SportsTeams.Services
             var item = await _appDbContext.Countries.FindAsync(id);
             if (item == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent(string.Format($"Država s ID-jem {id} nije pronađena")),
-                    ReasonPhrase = "ID nije pronađen"
-                };
-                throw new HttpResponseException(resp);
-            }
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }   
             try
             {
                 _mapper.Map(request, item);

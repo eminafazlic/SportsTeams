@@ -7,11 +7,10 @@ namespace SportsTeams.Model.Requests
 {
     public class TeamInsertRequest
     {
-        //public int Id { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
-        [Required(AllowEmptyStrings = false)]
-        public byte[] Picture { get; set; }
+        /*[Required(AllowEmptyStrings = false)]
+        public byte[] Picture { get; set; }*/
         [Required(AllowEmptyStrings = false)]
         public int CountryId { get; set; }
         [Required(AllowEmptyStrings = false)]

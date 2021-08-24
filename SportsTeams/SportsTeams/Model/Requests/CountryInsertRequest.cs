@@ -7,7 +7,6 @@ namespace SportsTeams.Model.Requests
 {
     public class CountryInsertRequest
     {
-        //public int Id { get; set; }
         [Required(AllowEmptyStrings = false)]
         [MinLength(3)]
         [MaxLength(30)]
@@ -15,8 +14,8 @@ namespace SportsTeams.Model.Requests
         [Required(AllowEmptyStrings = false)]
         [MaxLength(4)]
         public string Abbreviation { get; set; }
-        [Required(AllowEmptyStrings = false)]
-        public byte[] Picture { get; set; }
+        /*[Required(AllowEmptyStrings = false)]
+        public byte[] Picture { get; set; }*/
         [Required(AllowEmptyStrings = false)]
         public string Capital { get; set; }
         [Required(AllowEmptyStrings = false)]
