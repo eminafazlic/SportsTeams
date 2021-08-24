@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SportsTeams.Database
+namespace SportsTeams.Model
 {
-    public class CountryParameters
+    public class PageParameters
     {
         const int MaxPageSize = 50;
         public int PageNumber { get; set; } = 1;

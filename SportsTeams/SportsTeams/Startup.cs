@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SportsTeams.Database;
+using SportsTeams.EF;
 using SportsTeams.Model;
 using SportsTeams.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;

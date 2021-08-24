@@ -7,7 +7,7 @@ namespace SportsTeams.Model.Requests
 {
     public class TeamInsertRequest
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
         [Required(AllowEmptyStrings = false)]

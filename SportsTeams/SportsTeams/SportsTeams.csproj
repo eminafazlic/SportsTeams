@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SportsTeams.Model\SportsTeams.Model.csproj" />
+    <ProjectReference Include="..\SportsTeams.Model\SportsTeams.Database.csproj" />
   </ItemGroup>
 
 

@@ -7,7 +7,7 @@ namespace SportsTeams.Model.Requests
 {
     public class CountryInsertRequest
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         [Required(AllowEmptyStrings = false)]
         [MinLength(3)]
         [MaxLength(30)]

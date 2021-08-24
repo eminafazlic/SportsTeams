@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SportsTeams.Database;
 using SportsTeams.Filters;
+using SportsTeams.Model;
 using SportsTeams.Model.Requests;
 using SportsTeams.Services;
 using System;
@@ -31,10 +32,10 @@ namespace SportsTeams.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCountries([FromQuery]CountryParameters countryParameters)
+        public async Task<IActionResult> GetAllCountries([FromQuery]PageParameters pageParameters)
         {
-            _logger.LogInformation($"Izvršava se {nameof(GetAllCountries).ToString()} metoda sa parametrima {nameof(countryParameters.PageNumber).ToString()} i {nameof(countryParameters.PageSize).ToString()} i modelom {nameof(CountryParameters).ToString()}");
-            return Ok(await _countryService.GetAllCountries(countryParameters));
+            _logger.LogInformation($"Izvršava se {nameof(GetAllCountries).ToString()} metoda sa parametrima {nameof(pageParameters.PageNumber).ToString()} i {nameof(pageParameters.PageSize).ToString()} i modelom {nameof(PageParameters).ToString()}");
+            return Ok(await _countryService.GetAllCountries(pageParameters));
         }
         [HttpGet(template: "{id}")]
         public async Task<IActionResult> GetCountryById(int id)

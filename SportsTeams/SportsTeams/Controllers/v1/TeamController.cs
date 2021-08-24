@@ -26,9 +26,9 @@ namespace SportsTeams.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllTeams([FromQuery]CountryParameters countryParameters)
+        public async Task<IActionResult> GetAllTeams([FromQuery]PageParameters pageParameters)
         {
-            return Ok(await _teamService.GetAllTeams(countryParameters));
+            return Ok(await _teamService.GetAllTeams(pageParameters));
         }
 
         [HttpGet(template: "{id}")]
@@ -37,9 +37,9 @@ namespace SportsTeams.Controllers.v1
             return Ok(await _teamService.GetTeamById(id));
         }
         [HttpGet(template: "countryid={countryId}")]
-        public async Task<IActionResult> GetTeamsByCountryId([FromQuery] CountryParameters countryParameters, int countryId)
+        public async Task<IActionResult> GetTeamsByCountryId([FromQuery] PageParameters pageParameters, int countryId)
         {
-            return Ok(await _teamService.GetTeamsByCountryId(countryParameters, countryId));
+            return Ok(await _teamService.GetTeamsByCountryId(pageParameters, countryId));
         }
         [HttpPost]
         public async Task<IActionResult> InsertTeam([FromBody] TeamInsertRequest request)

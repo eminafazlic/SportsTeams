@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SportsTeams.Database
+namespace SportsTeams.EF
 {
     public class AppDbContext : DbContext
     {
@@ -13,7 +13,7 @@ namespace SportsTeams.Database
 
         }
 
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Team> Teams { get; set; }
+        public DbSet<Database.Country> Countries { get; set; }
+        public DbSet<Database.Team> Teams { get; set; }
     }
 }

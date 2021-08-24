@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SportsTeams.EF;
 
 namespace SportsTeams.Services
 {
@@ -21,32 +22,32 @@ namespace SportsTeams.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Model.Team>> GetAllTeams(CountryParameters countryParameters)
+        public async Task<IEnumerable<Model.Team>> GetAllTeams(PageParameters pageParameters)
         {
 
             return await _appDbContext.Teams.OrderBy(o => o.Name)
-                .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
-                .Take(countryParameters.PageSize)
+                .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                .Take(pageParameters.PageSize)
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(CountryParameters countryParameters)
+        public async Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(PageParameters pageParameters)
         {
 
             return await _appDbContext.Teams.OrderBy(o => o.Id)
-                .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
-                .Take(countryParameters.PageSize)
+                .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                .Take(pageParameters.PageSize)
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Model.Team>> GetTeamsByCountryId(CountryParameters countryParameters, int countryId)
+        public async Task<IEnumerable<Model.Team>> GetTeamsByCountryId(PageParameters pageParameters, int countryId)
         {
             return await _appDbContext.Teams
                .Where(y => y.CountryId == countryId)
                .OrderBy(o => o.Name)
-               .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
-               .Take(countryParameters.PageSize)
+               .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+               .Take(pageParameters.PageSize)
                .Select(x => _mapper.Map<Model.Team>(x))
                .ToListAsync();
         }
@@ -80,6 +81,7 @@ namespace SportsTeams.Services
                 // return not found or smth
             }
             _appDbContext.Teams.Remove(item);
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }

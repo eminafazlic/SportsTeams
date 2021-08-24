@@ -12,7 +12,7 @@ namespace SportsTeams.Mapping
         public SportsTeamsProfile()
         {
             CreateMap<Database.Country, Model.Country>();
-            CreateMap<Database.Country, CountryUpdateRequest>();
+            CreateMap<Model.Country, CountryUpdateRequest>();
             CreateMap<CountryUpdateRequest, Database.Country>();
             CreateMap<Database.Country, CountryInsertRequest>();
             CreateMap<CountryInsertRequest, Database.Country>();

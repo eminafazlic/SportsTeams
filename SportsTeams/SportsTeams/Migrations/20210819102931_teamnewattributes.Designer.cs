@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsTeams.Database;
+using SportsTeams.EF;
 using SportsTeams.Model;
 
 namespace SportsTeams.Migrations

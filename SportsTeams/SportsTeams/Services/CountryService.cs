@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using SportsTeams.EF;
 
 namespace SportsTeams.Services
 {
@@ -28,11 +29,11 @@ namespace SportsTeams.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Model.Country>> GetAllCountries(CountryParameters countryParameters)
+        public async Task<IEnumerable<Model.Country>> GetAllCountries(PageParameters pageParameters)
         {
             var list = await _appDbContext.Countries.OrderBy(o => o.Name)
-                .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
-                .Take(countryParameters.PageSize)
+                .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                .Take(pageParameters.PageSize)
                 .Select(x => _mapper.Map<Model.Country>(x))
                 .ToListAsync();
             if (list == null)
@@ -42,11 +43,11 @@ namespace SportsTeams.Services
             return list;
         }
 
-        public async Task<IEnumerable<Model.Country>> GetAllCountriesSortedById(CountryParameters countryParameters)
+        public async Task<IEnumerable<Model.Country>> GetAllCountriesSortedById(PageParameters pageParameters)
         {
             var list = await _appDbContext.Countries.OrderBy(o => o.Id)
-                .Skip((countryParameters.PageNumber - 1) * countryParameters.PageSize)
-                .Take(countryParameters.PageSize)
+                .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                .Take(pageParameters.PageSize)
                 .Select(x => _mapper.Map<Model.Country>(x))
                 .ToListAsync();
             if (list == null)
@@ -118,6 +119,7 @@ namespace SportsTeams.Services
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             _appDbContext.Countries.Remove(item);
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }
