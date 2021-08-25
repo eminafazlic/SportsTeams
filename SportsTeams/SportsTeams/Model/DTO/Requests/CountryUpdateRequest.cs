@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SportsTeams.Model.Requests
+namespace SportsTeams.Model.DTO.Requests
 {
     public class CountryUpdateRequest
     {

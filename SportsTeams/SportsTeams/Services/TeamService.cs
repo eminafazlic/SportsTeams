@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SportsTeams.Database;
 using SportsTeams.Model;
-using SportsTeams.Model.Requests;
+using SportsTeams.Model.DTO.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;

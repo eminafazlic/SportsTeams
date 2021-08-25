@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace SportsTeams.Model.Requests
+namespace SportsTeams.Model.DTO.Requests
 {
     public class TeamInsertRequest
     {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SportsTeams.Model.Requests;
+using SportsTeams.Model.DTO.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;

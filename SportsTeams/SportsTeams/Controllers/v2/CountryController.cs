@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SportsTeams.Database;
 using SportsTeams.Model;
-using SportsTeams.Model.Requests;
+using SportsTeams.Model.DTO.Requests;
 using SportsTeams.Services;
 using System;
 using System.Collections.Generic;
