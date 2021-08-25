@@ -103,8 +103,9 @@ namespace SportsTeams
                 .AllowAnyHeader();
             });*/
             app.UseCors(
-            options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod()
-            );
+            options => options.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
