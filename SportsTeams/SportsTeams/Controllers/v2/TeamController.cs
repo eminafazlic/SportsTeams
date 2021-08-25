@@ -8,15 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SportsTeams.Controllers.v1
+namespace SportsTeams.Controllers.v2
 {
-    /*[ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]*/
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1")]
-    [ApiExplorerSettings(GroupName = "v1")]
     [ApiController]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("2")]
+    [ApiExplorerSettings(GroupName = "v2")]
     public class TeamController : ControllerBase
     {
         public ITeamService _teamService { get; set; }
