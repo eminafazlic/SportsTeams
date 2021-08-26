@@ -19,18 +19,15 @@ namespace SportsTeams.Controllers.v1
     public class CountryController : ControllerBase
     {
         public ICountryService _countryService { get; set; }
-        ILogger<CountryController> _logger;
 
         public CountryController(ICountryService countryService, ILogger<CountryController> logger)
         {
             _countryService = countryService;
-            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCountries([FromQuery] PageParameters pageParameters)
-        {
-            _logger.LogInformation($"Izvršava se {nameof(GetAllCountries).ToString()} metoda sa parametrima {nameof(pageParameters.PageNumber).ToString()} i {nameof(pageParameters.PageSize).ToString()} i modelom {nameof(PageParameters).ToString()}");
+        { 
             return Ok(await _countryService.GetAllCountries(pageParameters));
         }
         [HttpGet(template: "{id}")]
@@ -41,7 +38,7 @@ namespace SportsTeams.Controllers.v1
         }
         [HttpPost]
         public async Task<IActionResult> InsertCountry([FromBody] CountryInsertRequest request)
-        {
+        { 
             return Created("~/api/v1/country", await _countryService.InsertCountry(request));
 
         }

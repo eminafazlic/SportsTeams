@@ -18,18 +18,15 @@ namespace SportsTeams.Controllers.v2
     public class CountryController : ControllerBase
     { 
         public ICountryService _countryService { get; set; }
-        ILogger<CountryController> _logger;
 
-        public CountryController(ICountryService countryService, ILogger<CountryController> logger)
+        public CountryController(ICountryService countryService)
         {
             _countryService = countryService;
-            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCountries([FromQuery]PageParameters pageParameters)
         {
-            _logger.LogInformation($"Izvršava se {nameof(GetAllCountries).ToString()} metoda sa parametrima {nameof(pageParameters.PageNumber).ToString()} i {nameof(pageParameters.PageSize).ToString()} i modelom {nameof(PageParameters).ToString()}");
             return Ok(await _countryService.GetAllCountries(pageParameters));
         }
         [HttpGet(template: "{id}")]

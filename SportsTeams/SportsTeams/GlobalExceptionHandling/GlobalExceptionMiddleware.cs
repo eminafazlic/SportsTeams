@@ -28,7 +28,7 @@ namespace SportsTeams.GlobalExceptionHandling
             catch (Exception e)
             {
                 _logger.LogError(e, $"{context.Request.Method} ERROR -> " + e.Message + "\nPath: " + context.Request.Path + "\nMethod: " + context.Request.Method + "\nProtocol: " + context.Request.Protocol);
-                await context.Response.WriteAsync($"{context.Request.Method} ERROR" + "\nPath: " + context.Request.Path + "\nMethod: " + context.Request.Method + "\nProtocol: " + context.Request.Protocol);
+                await context.Response.WriteAsync($"{context.Request.Method} ERROR" + "\nPath: " + context.Request.Path + "\nMethod: " + context.Request.Method);
             }
         }
     } 

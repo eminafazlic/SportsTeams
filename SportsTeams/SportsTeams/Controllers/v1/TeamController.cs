@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SportsTeams.Database;
 using SportsTeams.Model;
 using SportsTeams.Model.DTO.Requests;
@@ -17,10 +18,12 @@ namespace SportsTeams.Controllers.v1
     public class TeamController : ControllerBase
     {
         public ITeamService _teamService { get; set; }
+        ILogger<TeamController> _logger;
 
-        public TeamController(ITeamService teamService)
+        public TeamController(ITeamService teamService, ILogger<TeamController> logger)
         {
             _teamService = teamService;
+            _logger = logger;
         }
 
         [HttpGet]

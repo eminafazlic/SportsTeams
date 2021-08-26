@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using SportsTeams.EF;
+using Microsoft.Extensions.Logging;
 
 namespace SportsTeams.Services
 {
@@ -22,15 +23,18 @@ namespace SportsTeams.Services
 
         private readonly AppDbContext _appDbContext;
         protected readonly IMapper _mapper;
+        protected readonly ILogger<CountryService> _logger;
 
-        public CountryService(AppDbContext appDbContext, IMapper mapper)
+        public CountryService(AppDbContext appDbContext, IMapper mapper, ILogger<CountryService> logger)
         {
             _appDbContext = appDbContext;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Model.Country>> GetAllCountries(PageParameters pageParameters)
         {
+            _logger.LogInformation($"Izvršava se {nameof(GetAllCountries)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
             var list = await _appDbContext.Countries.OrderBy(o => o.Name)
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
@@ -45,6 +49,7 @@ namespace SportsTeams.Services
 
         public async Task<IEnumerable<Model.Country>> GetAllCountriesSortedById(PageParameters pageParameters)
         {
+            _logger.LogInformation($"Izvršava se {nameof(GetAllCountries)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
             var list = await _appDbContext.Countries.OrderBy(o => o.Id)
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
@@ -59,15 +64,10 @@ namespace SportsTeams.Services
 
         public async Task<Model.Country> GetCountryById(int id)
         {
+            _logger.LogInformation($"Izvršava se {nameof(GetCountryById)} metoda sa parametrom {nameof(id)} {id}");
             var item = await _appDbContext.Countries.FindAsync(id);
             if (item == null)
             {
-                /*var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent(string.Format($"Država s ID-jem {id} nije pronađena")),
-                    ReasonPhrase = "ID nije pronađen"
-                };
-                throw new HttpResponseException(resp);*/
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             return _mapper.Map<Model.Country>(item);
@@ -76,6 +76,7 @@ namespace SportsTeams.Services
         [ValidateModel]
         public async Task<Model.Country> InsertCountry(CountryInsertRequest request)
         {
+            _logger.LogInformation($"Izvršava se {nameof(InsertCountry)} metoda sa modelom {nameof(CountryInsertRequest)} i parametrima {nameof(request.Name)} {request.Name}, {nameof(request.Picture)} {request.Picture}, {nameof(request.Population)} {request.Population}, {nameof(request.Abbreviation)} {request.Abbreviation}, {nameof(request.Capital)} {request.Capital}");
             try
             {
                 var item = _mapper.Map<Database.Country>(request);
@@ -90,6 +91,7 @@ namespace SportsTeams.Services
         }
         public async Task<Model.Country> UpdateCountry(int id, CountryUpdateRequest request)
         {
+            _logger.LogInformation($"Izvršava se {nameof(UpdateCountry)} metoda sa modelom {nameof(request)} za {nameof(id)} {id} sa parametrima {nameof(request.Name)} {request.Name}, {nameof(request.Picture)} {request.Picture}, {nameof(request.Population)} {request.Population}, {nameof(request.Abbreviation)} {request.Abbreviation}, {nameof(request.Capital)} {request.Capital}");
             var item = await _appDbContext.Countries.FindAsync(id);
             if (item == null)
             {
@@ -108,7 +110,8 @@ namespace SportsTeams.Services
         }
 
         public async Task DeleteCountry(int id)
-        { 
+        {
+            _logger.LogInformation($"Izvršava se {nameof(DeleteCountry)} metoda sa parametrom {nameof(id)} {id}");
             var item = await _appDbContext.Countries.FindAsync(id);
             if (item == null)
             {
