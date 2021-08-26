@@ -57,6 +57,10 @@ namespace SportsTeams.Services
         public async Task<Model.Team> GetTeamById(int id)
         {
             var item = await _appDbContext.Teams.FindAsync(id);
+            if (item == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
             return _mapper.Map<Model.Team>(item);
         }
 

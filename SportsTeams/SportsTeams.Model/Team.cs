@@ -9,13 +9,13 @@ namespace SportsTeams.Database
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public byte[] Picture { get; set; }
+        public string Picture { get; set; }
         public int CountryId { get; set; }
         public Country Country { get; set; }
         public int Founded { get; set; } // godina osnivanja
         public string HomeGround { get; set; } // domaći stadion
         public int StadiumCapacity { get; set; }
-        public int MarketValue { get; set; }
+        public float MarketValue { get; set; }
         public int NumberOfPlayers { get; set; }
         public string HeadCoach { get; set; }
         public string President { get; set; }

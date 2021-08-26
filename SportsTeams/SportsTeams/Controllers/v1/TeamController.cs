@@ -10,9 +10,6 @@ using System.Threading.Tasks;
 
 namespace SportsTeams.Controllers.v1
 {
-    /*[ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]*/
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
     [ApiExplorerSettings(GroupName = "v1")]
@@ -45,7 +42,7 @@ namespace SportsTeams.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> InsertTeam([FromBody] TeamInsertRequest request)
         {
-            return Created("~/api/team", await _teamService.InsertTeam(request));
+            return Created("~/api/v1/team", await _teamService.InsertTeam(request));
         }
         [HttpPut(template: "{id}")]
         public async Task<IActionResult> UpdateTeam(int id, TeamUpdateRequest request)

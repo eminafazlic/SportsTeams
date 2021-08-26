@@ -7,7 +7,7 @@ namespace SportsTeams.Model.DTO.Requests
     public class TeamUpdateRequest
     {
         public string Name { get; set; }
-        //public byte[] Picture { get; set; }
+        public string Picture { get; set; }
         public int CountryId { get; set; }
         public int Founded { get; set; }
         public string HomeGround { get; set; }

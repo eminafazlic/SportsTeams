@@ -12,10 +12,6 @@ using System.Threading.Tasks;
 
 namespace SportsTeams.Controllers.v1
 {
-    /*[ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]*/
-
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
     [ApiExplorerSettings(GroupName = "v1")]
@@ -46,7 +42,7 @@ namespace SportsTeams.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> InsertCountry([FromBody] CountryInsertRequest request)
         {
-            return Created("~/api/country", await _countryService.InsertCountry(request));
+            return Created("~/api/v1/country", await _countryService.InsertCountry(request));
 
         }
         [HttpPut(template: "{id}")]

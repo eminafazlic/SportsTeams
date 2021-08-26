@@ -10,8 +10,8 @@ namespace SportsTeams.Model.DTO.Requests
     {
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
-        /*[Required(AllowEmptyStrings = false)]
-        public byte[] Picture { get; set; }*/
+        [Required(AllowEmptyStrings = false)]
+        public string Picture { get; set; }
         [Required(AllowEmptyStrings = false)]
         [Range(1, int.MaxValue)]
         public int CountryId { get; set; }

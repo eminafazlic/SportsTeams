@@ -42,7 +42,7 @@ namespace SportsTeams.Controllers.v2
         [HttpPost]
         public async Task<IActionResult> InsertTeam([FromBody] TeamInsertRequest request)
         {
-            return Created("~/api/team", await _teamService.InsertTeam(request));
+            return Created("~/api/v2/team", await _teamService.InsertTeam(request));
         }
         [HttpPut(template: "{id}")]
         public async Task<IActionResult> UpdateTeam(int id, TeamUpdateRequest request)
