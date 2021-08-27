@@ -11,6 +11,7 @@ using SportsTeams.EF;
 using System.Web.Http;
 using System.Net;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
 
 namespace SportsTeams.Services
 {
@@ -27,12 +28,14 @@ namespace SportsTeams.Services
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Model.Team>> GetAllTeams(PageParameters pageParameters)
+        public async Task<IEnumerable<Model.Team>> GetAllTeams(PageParameters pageParameters, string q = null)
         {
             _logger.LogInformation($"Izvršava se {nameof(GetAllTeams)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
-            return await _appDbContext.Teams.OrderBy(o => o.Name)
+            return await _appDbContext.Teams
+                .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
+                .OrderBy(o => o.Name)
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
         }
@@ -64,7 +67,13 @@ namespace SportsTeams.Services
             var item = await _appDbContext.Teams.FindAsync(id);
             if (item == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Nije pronađen tim s ID-jem {id}"
+                };
+                throw new HttpResponseException(resp);
+                //throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             return _mapper.Map<Model.Team>(item);
         }
@@ -81,7 +90,12 @@ namespace SportsTeams.Services
             }
             catch
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                //throw new HttpResponseException(HttpStatusCode.BadRequest);
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    ReasonPhrase = $"Neuspješan insert"
+                };
+                throw new HttpResponseException(resp);
             }
         }
         public async Task<Model.Team> UpdateTeam(int id, TeamUpdateRequest request)
@@ -90,7 +104,11 @@ namespace SportsTeams.Services
             var item = await _appDbContext.Teams.FindAsync(id);
             if (item == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Nije pronađen tim s ID-jem {id}"
+                };
+                throw new HttpResponseException(resp);
             }
             try
             {
@@ -100,7 +118,12 @@ namespace SportsTeams.Services
             }
             catch
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    ReasonPhrase = $"Neuspješan update"
+                };
+                throw new HttpResponseException(resp);
+                //throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
         }
 
@@ -110,7 +133,11 @@ namespace SportsTeams.Services
             var item = await _appDbContext.Teams.FindAsync(id);
             if (item == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Nije pronađen tim s ID-jem {id}"
+                };
+                throw new HttpResponseException(resp);
             }
             _appDbContext.Teams.Remove(item);
             await _appDbContext.SaveChangesAsync();

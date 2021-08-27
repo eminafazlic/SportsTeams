@@ -32,17 +32,23 @@ namespace SportsTeams.Services
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Model.Country>> GetAllCountries(PageParameters pageParameters)
+        public async Task<IEnumerable<Model.Country>> GetAllCountries(PageParameters pageParameters, string q = null)
         {
             _logger.LogInformation($"Izvršava se {nameof(GetAllCountries)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
-            var list = await _appDbContext.Countries.OrderBy(o => o.Name)
+            var list = await _appDbContext.Countries
+                .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
+                .OrderBy(o => o.Name)
                 .Select(x => _mapper.Map<Model.Country>(x))
                 .ToListAsync();
             if (list == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = "Lista država je prazna"
+                };
+                throw new HttpResponseException(resp);
             }
             return list;
         }
@@ -57,7 +63,11 @@ namespace SportsTeams.Services
                 .ToListAsync();
             if (list == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Lista država je prazna"
+                };
+                throw new HttpResponseException(resp);
             }
             return list;
         }
@@ -68,7 +78,11 @@ namespace SportsTeams.Services
             var item = await _appDbContext.Countries.FindAsync(id);
             if (item == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Nije pronađena država s ID-jem {id}"
+                };
+                throw new HttpResponseException(resp);
             }
             return _mapper.Map<Model.Country>(item);
         }
@@ -86,7 +100,11 @@ namespace SportsTeams.Services
             }
             catch
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    ReasonPhrase = $"Neuspješan insert"
+                };
+                throw new HttpResponseException(resp);
             }
         }
         public async Task<Model.Country> UpdateCountry(int id, CountryUpdateRequest request)
@@ -95,7 +113,11 @@ namespace SportsTeams.Services
             var item = await _appDbContext.Countries.FindAsync(id);
             if (item == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Nije pronađena država s ID-jem {id}"
+                };
+                throw new HttpResponseException(resp);
             }   
             try
             {
@@ -105,7 +127,11 @@ namespace SportsTeams.Services
             }
             catch
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Neuspješan update"
+                };
+                throw new HttpResponseException(resp);
             }
         }
 
@@ -115,7 +141,11 @@ namespace SportsTeams.Services
             var item = await _appDbContext.Countries.FindAsync(id);
             if (item == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Nije pronađena država s ID-jem {id}"
+                };
+                throw new HttpResponseException(resp);
             }
             _appDbContext.Countries.Remove(item);
             await _appDbContext.SaveChangesAsync();

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Filters;
 
@@ -25,9 +26,11 @@ namespace SportsTeams.GlobalExceptionHandling
             {
                 await _next(context);
             }
-            catch (Exception e)
+            //catch (Exception e) {}
+            catch(HttpResponseException e)
             {
-                _logger.LogError(e, $"{context.Request.Method} ERROR -> " + e.Message + "\nPath: " + context.Request.Path + "\nMethod: " + context.Request.Method + "\nProtocol: " + context.Request.Protocol);
+                _logger.LogError(e, $"{context.Request.Method} ERROR -> " + e.Message + "\nPath: " + context.Request.Path + "\nMethod: " + context.Request.Method + "\nReason phrase: " + e.Response.ReasonPhrase);
+                await context.Response.WriteAsync($"{e.Response.ReasonPhrase}\n");
                 await context.Response.WriteAsync($"{context.Request.Method} ERROR" + "\nPath: " + context.Request.Path + "\nMethod: " + context.Request.Method);
             }
         }
