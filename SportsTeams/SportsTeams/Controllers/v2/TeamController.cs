@@ -24,9 +24,9 @@ namespace SportsTeams.Controllers.v2
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllTeams([FromQuery]PageParameters pageParameters)
+        public async Task<IActionResult> GetAllTeams([FromQuery]PageParameters pageParameters, [FromQuery] string q)
         {
-            return Ok(await _teamService.GetAllTeams(pageParameters));
+            return Ok(await _teamService.GetAllTeamsSortedById(pageParameters, q));
         }
 
         [HttpGet(template: "{id}")]

@@ -39,12 +39,14 @@ namespace SportsTeams.Services
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(PageParameters pageParameters)
+        public async Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(PageParameters pageParameters, string q = null)
         {
             _logger.LogInformation($"Izvršava se {nameof(GetAllTeamsSortedById)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
-            return await _appDbContext.Teams.OrderBy(o => o.Id)
+            return await _appDbContext.Teams
+                .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
+                .OrderBy(o => o.Id)
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
         }
@@ -52,13 +54,25 @@ namespace SportsTeams.Services
         public async Task<IEnumerable<Model.Team>> GetTeamsByCountryId(PageParameters pageParameters, int countryId)
         {
             _logger.LogInformation($"Izvršava se {nameof(GetTeamsByCountryId)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize} i {nameof(countryId)} {countryId}");
-            return await _appDbContext.Teams
-               .Where(y => y.CountryId == countryId)
-               .OrderBy(o => o.Name)
-               .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
-               .Take(pageParameters.PageSize)
-               .Select(x => _mapper.Map<Model.Team>(x))
-               .ToListAsync();
+            var country = _appDbContext.Countries.Find(countryId);
+            if (country != null)
+            {
+                return await _appDbContext.Teams
+                   .Where(y => y.CountryId == countryId)
+                   .OrderBy(o => o.Name)
+                   .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                   .Take(pageParameters.PageSize)
+                   .Select(x => _mapper.Map<Model.Team>(x))
+                   .ToListAsync();
+            }
+            else
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Nije pronađena država s ID-jem {countryId}"
+                };
+                throw new HttpResponseException(resp);
+            }
         }
 
         public async Task<Model.Team> GetTeamById(int id)

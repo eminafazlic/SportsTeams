@@ -25,9 +25,9 @@ namespace SportsTeams.Controllers.v2
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCountries([FromQuery]PageParameters pageParameters)
+        public async Task<IActionResult> GetAllCountries([FromQuery]PageParameters pageParameters, [FromQuery] string q)
         {
-            return Ok(await _countryService.GetAllCountries(pageParameters));
+            return Ok(await _countryService.GetAllCountriesSortedById(pageParameters, q));
         }
         [HttpGet(template: "{id}")]
         public async Task<IActionResult> GetCountryById(int id)

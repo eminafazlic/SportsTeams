@@ -11,7 +11,7 @@ namespace SportsTeams.Services
     public interface ITeamService
     {
         public Task<IEnumerable<Model.Team>> GetAllTeams(PageParameters pageParameters, string q = null);
-        public Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(PageParameters pageParameters);
+        public Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(PageParameters pageParameters, string q = null);
         public Task<Model.Team> GetTeamById(int id);
 
         public Task<IEnumerable<Model.Team>> GetTeamsByCountryId(PageParameters pageParameters, int countryId);
