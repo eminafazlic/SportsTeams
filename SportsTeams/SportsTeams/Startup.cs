@@ -48,6 +48,7 @@ namespace SportsTeams
             });*/
 
             //services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddMvc();
             services.AddApiVersioning(o=> 
             { 
