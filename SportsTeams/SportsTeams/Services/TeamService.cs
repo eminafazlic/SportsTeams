@@ -81,7 +81,6 @@ namespace SportsTeams.Services
         {
             _logger.LogInformation($"Izvršava se {nameof(GetTeamById)} metoda sa parametrom {nameof(id)} {id}");
             var item = await _appDbContext.Teams.FindAsync(id);
-            var country = await _appDbContext.Countries.FindAsync(item.CountryId);
             if (item == null)
             {
 
@@ -92,15 +91,16 @@ namespace SportsTeams.Services
                 throw new HttpResponseException(resp);
                 //throw new HttpResponseException(HttpStatusCode.NotFound);
             }
+            var country = await _appDbContext.Countries.FindAsync(item.CountryId);
             return _mapper.Map<Model.Team>(item);
         }
 
         public async Task<Model.Team> InsertTeam(TeamInsertRequest request)
         {
             _logger.LogInformation($"Izvršava se {nameof(InsertTeam)} metoda sa modelom {nameof(TeamInsertRequest)} i parametrima {nameof(request.Name)} {request.Name}, {nameof(request.Picture)} {request.Picture}, {nameof(request.CountryId)} {request.CountryId}, {nameof(request.Founded)} {request.Founded}, {nameof(request.HeadCoach)} {request.HeadCoach}, {nameof(request.HomeGround)} {request.HomeGround}, {nameof(request.League)} {request.League}, {nameof(request.MarketValue)} {request.MarketValue}, {nameof(request.NumberOfPlayers)} {request.NumberOfPlayers}, {nameof(request.President)} {(request.President)}, {nameof(request.StadiumCapacity)} {request.StadiumCapacity}");
-            var country = await _appDbContext.Countries.FindAsync(request.CountryId);
             try
             {
+                var country = await _appDbContext.Countries.FindAsync(request.CountryId);
                 var item = _mapper.Map<Database.Team>(request);
                 await _appDbContext.Teams.AddAsync(item);
                 await _appDbContext.SaveChangesAsync();
@@ -119,7 +119,6 @@ namespace SportsTeams.Services
         public async Task<Model.Team> UpdateTeam(int id, TeamUpdateRequest request)
         {
             _logger.LogInformation($"Izvršava se {nameof(UpdateTeam)} metoda sa modelom {nameof(TeamInsertRequest)} za {nameof(id)} {id} sa parametrima {nameof(request.Name)} {request.Name}, {nameof(request.Picture)} {request.Picture}, {nameof(request.CountryId)} {request.CountryId}, {nameof(request.Founded)} {request.Founded}, {nameof(request.HeadCoach)} {request.HeadCoach}, {nameof(request.HomeGround)} {request.HomeGround}, {nameof(request.League)} {request.League}, {nameof(request.MarketValue)} {request.MarketValue}, {nameof(request.NumberOfPlayers)} {request.NumberOfPlayers}, {nameof(request.President)} {(request.President)}, {nameof(request.StadiumCapacity)} {request.StadiumCapacity}");
-            var country = await _appDbContext.Countries.FindAsync(request.CountryId);
             var item = await _appDbContext.Teams.FindAsync(id);
             request.Founded = item.Founded;
             if (item == null)
@@ -132,6 +131,7 @@ namespace SportsTeams.Services
             }
             try
             {
+                var country = await _appDbContext.Countries.FindAsync(request.CountryId);
                 _mapper.Map(request, item);
                 await _appDbContext.SaveChangesAsync();
                 return _mapper.Map<Model.Team>(item);

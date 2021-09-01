@@ -20,8 +20,8 @@
     "SportsTeams": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "teams",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "launchUrl": "swagger",
+      "applicationUrl": "https://192.168.1.112:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
