@@ -36,26 +36,13 @@ namespace SportsTeams
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            /*services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("https://localhost:44351", "http://localhost:4200")
-                                            .AllowAnyHeader()
-                                            .AllowAnyMethod();
-                    });
-            });*/
-
-            //services.AddControllers();
             services.AddControllers().AddNewtonsoftJson();
             services.AddMvc();
-            services.AddApiVersioning(o=> 
-            { 
-                o.AssumeDefaultVersionWhenUnspecified = true; 
-                o.DefaultApiVersion = new ApiVersion(1, 0); 
+            services.AddApiVersioning(o =>
+            {
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
             });
-
             services.AddSwaggerGen(o=> 
             {
                 o.SwaggerDoc("v1", new OpenApiInfo
@@ -64,7 +51,6 @@ namespace SportsTeams
                     Title = "API V1 Title",
                     Description = "API V1 Description"
                 });
-
                 o.SwaggerDoc("v2", new OpenApiInfo
                 {
                     Version = "v2",
@@ -77,7 +63,6 @@ namespace SportsTeams
             });
 
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:SportsTeamsDb"]));
-
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ITeamService, TeamService>();
 
