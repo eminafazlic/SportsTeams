@@ -32,25 +32,43 @@ namespace SportsTeams.Services
         {
             _logger.LogInformation($"Izvršava se {nameof(GetAllTeams)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
             var countries = await _appDbContext.Countries.ToListAsync();
-            return await _appDbContext.Teams
+            var list = await _appDbContext.Teams
                 .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
                 .OrderBy(o => o.Name)
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
+            /*if (list.Count == 0)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Lista timova je prazna"
+                };
+                throw new HttpResponseException(resp);
+            }*/
+            return list;
         }
         public async Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(PageParameters pageParameters, string q = null)
         {
             _logger.LogInformation($"Izvršava se {nameof(GetAllTeamsSortedById)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
             var countries = await _appDbContext.Countries.ToListAsync();
-            return await _appDbContext.Teams
+            var list = await _appDbContext.Teams
                 .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
                 .OrderBy(o => o.Id)
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
+            /*if (list.Count == 0)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    ReasonPhrase = $"Lista timova je prazna"
+                };
+                throw new HttpResponseException(resp);
+            }*/
+            return list;
         }
 
         public async Task<IEnumerable<Model.Team>> GetTeamsByCountryId(PageParameters pageParameters, int countryId)

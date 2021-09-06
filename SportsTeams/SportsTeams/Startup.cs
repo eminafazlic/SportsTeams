@@ -90,7 +90,8 @@ namespace SportsTeams
                 .AllowAnyHeader();
             });*/
             app.UseCors(
-            options => options.WithOrigins("http://localhost:4200")
+            //options => options.WithOrigins("http://localhost:4200")
+            options => options.WithOrigins("*")
             .AllowAnyMethod()
             .AllowAnyHeader());
 

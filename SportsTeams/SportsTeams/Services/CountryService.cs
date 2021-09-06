@@ -42,14 +42,14 @@ namespace SportsTeams.Services
                 .OrderBy(o => o.Name)
                 .Select(x => _mapper.Map<Model.Country>(x))
                 .ToListAsync();
-            if (list == null)
+            /*if (list.Count== 0)
             {
                 var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
                     ReasonPhrase = "Lista država je prazna"
                 };
                 throw new HttpResponseException(resp);
-            }
+            }*/
             return list;
         }
 
@@ -63,14 +63,14 @@ namespace SportsTeams.Services
                 .OrderBy(o => o.Id)
                 .Select(x => _mapper.Map<Model.Country>(x))
                 .ToListAsync();
-            if (list == null)
+            /*if (list.Count == 0)
             {
                 var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
                     ReasonPhrase = $"Lista država je prazna"
                 };
                 throw new HttpResponseException(resp);
-            }
+            }*/
             return list;
         }
 
