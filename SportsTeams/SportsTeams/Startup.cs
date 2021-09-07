@@ -65,6 +65,7 @@ namespace SportsTeams
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:SportsTeamsDb"]));
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ITeamService, TeamService>();
+            services.AddScoped<IPlayerService, PlayerService>();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -81,14 +82,6 @@ namespace SportsTeams
                 app.UseDeveloperExceptionPage();
             }
             app.UseSwagger();
-
-            /*app.UseCors(builder =>
-            {
-                builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-            });*/
             app.UseCors(
             //options => options.WithOrigins("http://localhost:4200")
             options => options.WithOrigins("*")

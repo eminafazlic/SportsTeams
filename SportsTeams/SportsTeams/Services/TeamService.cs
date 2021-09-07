@@ -138,7 +138,6 @@ namespace SportsTeams.Services
         {
             _logger.LogInformation($"Izvršava se {nameof(UpdateTeam)} metoda sa modelom {nameof(TeamInsertRequest)} za {nameof(id)} {id} sa parametrima {nameof(request.Name)} {request.Name}, {nameof(request.Picture)} {request.Picture}, {nameof(request.CountryId)} {request.CountryId}, {nameof(request.Founded)} {request.Founded}, {nameof(request.HeadCoach)} {request.HeadCoach}, {nameof(request.HomeGround)} {request.HomeGround}, {nameof(request.League)} {request.League}, {nameof(request.MarketValue)} {request.MarketValue}, {nameof(request.NumberOfPlayers)} {request.NumberOfPlayers}, {nameof(request.President)} {(request.President)}, {nameof(request.StadiumCapacity)} {request.StadiumCapacity}");
             var item = await _appDbContext.Teams.FindAsync(id);
-            request.Founded = item.Founded;
             if (item == null)
             {
                 var resp = new HttpResponseMessage(HttpStatusCode.NotFound)

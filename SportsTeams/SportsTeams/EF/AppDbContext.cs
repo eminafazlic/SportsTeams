@@ -15,5 +15,6 @@ namespace SportsTeams.EF
 
         public DbSet<Database.Country> Countries { get; set; }
         public DbSet<Database.Team> Teams { get; set; }
+        public DbSet<Database.Player> Players { get; set; }
     }
 }
