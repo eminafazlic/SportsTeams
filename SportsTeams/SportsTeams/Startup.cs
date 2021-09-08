@@ -43,7 +43,7 @@ namespace SportsTeams
                 o.AssumeDefaultVersionWhenUnspecified = true;
                 o.DefaultApiVersion = new ApiVersion(1, 0);
             });
-            services.AddSwaggerGen(o=> 
+            services.AddSwaggerGen(o =>
             {
                 o.SwaggerDoc("v1", new OpenApiInfo
                 {

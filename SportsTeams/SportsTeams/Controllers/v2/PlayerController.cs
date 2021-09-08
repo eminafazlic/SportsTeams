@@ -26,10 +26,10 @@ namespace SportsTeams.Controllers.v2
             _logger = logger;
         }
 
-        [HttpGet(template: "teamid={teamId}")]
-        public async Task<IActionResult> GetAllPlayers(int teamId, [FromQuery] PageParameters pageParameters, [FromQuery] string q)
+        [HttpGet]
+        public async Task<IActionResult> GetAllPlayers([FromQuery] PageParameters pageParameters, [FromQuery] string q, [FromQuery] int teamId)
         {
-            return Ok(await _playerService.GetAllPlayers(teamId, pageParameters, q));
+            return Ok(await _playerService.GetAllPlayers(pageParameters, q, teamId));
         }
         [HttpGet(template: "{id}")]
         public async Task<IActionResult> GetPlayerById(int id)
