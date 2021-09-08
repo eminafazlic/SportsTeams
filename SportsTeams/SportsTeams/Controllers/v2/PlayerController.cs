@@ -29,7 +29,7 @@ namespace SportsTeams.Controllers.v2
         [HttpGet]
         public async Task<IActionResult> GetAllPlayers([FromQuery] PageParameters pageParameters, [FromQuery] string q, [FromQuery] int teamId)
         {
-            return Ok(await _playerService.GetAllPlayers(pageParameters, q, teamId));
+            return Ok(await _playerService.GetAllPlayersSortedById(pageParameters, q, teamId));
         }
         [HttpGet(template: "{id}")]
         public async Task<IActionResult> GetPlayerById(int id)
