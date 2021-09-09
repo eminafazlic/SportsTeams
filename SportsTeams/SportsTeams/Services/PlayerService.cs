@@ -106,6 +106,47 @@ namespace SportsTeams.Services
                 return list;
             }
         }
+        public async Task<IEnumerable<Model.DTO.Player>> GetAllPlayersSortedByCountry(PageParameters pageParameters, string q = null, int teamId = 0)
+        {
+            _logger.LogInformation($"Izvršava se {nameof(GetAllPlayersSortedById)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
+            var countries = await _appDbContext.Countries.ToListAsync();
+            if (teamId == 0)
+            {
+                var teams = await _appDbContext.Teams.ToListAsync();
+
+                var list = await _appDbContext.Players
+                .Where(x => q == null || x.Name.Contains(q))
+                .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                .Take(pageParameters.PageSize)
+                .OrderBy(o => o.Country.Name)
+                .ThenBy(o => o.Name)
+                .Select(x => _mapper.Map<Model.DTO.Player>(x))
+                .ToListAsync();
+                return list;
+            }
+            else
+            {
+                var team = await _appDbContext.Teams.FindAsync(teamId);
+                if (team == null)
+                {
+                    var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                    {
+                        ReasonPhrase = $"Nije pronađen tim s ID-jem {teamId}"
+                    };
+                    throw new HttpResponseException(resp);
+                }
+                var list = await _appDbContext.Players
+                    .Where(x => x.TeamId == teamId)
+                    .Where(x => q == null || x.Name.Contains(q))
+                    .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
+                    .Take(pageParameters.PageSize)
+                    .OrderBy(o => o.Country.Name)
+                    .ThenBy(o => o.Name)
+                    .Select(x => _mapper.Map<Model.DTO.Player>(x))
+                    .ToListAsync();
+                return list;
+            }
+        }
         public async Task<Model.DTO.Player> GetPlayerById(int id)
         {
             _logger.LogInformation($"Izvršava se {nameof(GetPlayerById)} metoda sa parametrom {nameof(id)} {id}");

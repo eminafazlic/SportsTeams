@@ -11,10 +11,9 @@ namespace SportsTeams.Services
     {
         public Task<IEnumerable<Model.DTO.Player>> GetAllPlayers(PageParameters pageParameters, string q = null, int teamId = 0);
         public Task<IEnumerable<Model.DTO.Player>> GetAllPlayersSortedById(PageParameters pageParameters, string q = null, int teamId = 0);
+        public Task<IEnumerable<Model.DTO.Player>> GetAllPlayersSortedByCountry(PageParameters pageParameters, string q = null, int teamId = 0);
         public Task<Model.DTO.Player> GetPlayerById(int id);
-
         public Task<Model.DTO.Player> InsertPlayer(PlayerInsertRequest request);
-
         public Task<Model.DTO.Player> UpdatePlayer(int id, PlayerUpdateRequest request);
         public Task DeletePlayer(int id);
     }

@@ -57,6 +57,12 @@ namespace SportsTeams
                     Title = "API V2 Title",
                     Description = "API V2 Description"
                 });
+                o.SwaggerDoc("v3", new OpenApiInfo
+                {
+                    Version = "v3",
+                    Title = "API V3 Title",
+                    Description = "API V3 Description"
+                });
                 o.ResolveConflictingActions(a => a.First());
                 o.OperationFilter<RemoveVersionFromParameter>();
                 o.DocumentFilter<ReplaceVersionWithExactValueInPath>();
@@ -94,6 +100,7 @@ namespace SportsTeams
             {
                 c.SwaggerEndpoint($"/swagger/v1/swagger.json", "API V1");
                 c.SwaggerEndpoint($"/swagger/v2/swagger.json", "API V2");
+                c.SwaggerEndpoint($"/swagger/v3/swagger.json", "API V3");
                
             });
 
