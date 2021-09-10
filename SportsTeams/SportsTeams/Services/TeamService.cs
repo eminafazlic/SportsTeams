@@ -51,13 +51,14 @@ namespace SportsTeams.Services
         }
         public async Task<IEnumerable<Model.Team>> GetAllTeamsSortedById(PageParameters pageParameters, string q = null)
         {
+            // promjena plana, ipak sortira po marketvalue
             _logger.LogInformation($"Izvršava se {nameof(GetAllTeamsSortedById)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
             var countries = await _appDbContext.Countries.ToListAsync();
             var list = await _appDbContext.Teams
                 .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
-                .OrderBy(o => o.Id)
+                .OrderByDescending(o => o.MarketValue)
                 .Select(x => _mapper.Map<Model.Team>(x))
                 .ToListAsync();
             /*if (list.Count == 0)

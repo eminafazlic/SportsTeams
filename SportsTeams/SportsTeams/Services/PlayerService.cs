@@ -67,6 +67,7 @@ namespace SportsTeams.Services
         }
         public async Task<IEnumerable<Model.DTO.Player>> GetAllPlayersSortedById(PageParameters pageParameters, string q = null, int teamId = 0)
         {
+            //zapravo sortira po cijeni but ok
             _logger.LogInformation($"Izvršava se {nameof(GetAllPlayersSortedById)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
             var countries = await _appDbContext.Countries.ToListAsync();
             if (teamId == 0)
@@ -77,7 +78,7 @@ namespace SportsTeams.Services
                 .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
-                .OrderBy(o => o.Team.Name)
+                .OrderByDescending(o => o.MarketValue)
                 .ThenBy(o => o.Name)
                 .Select(x => _mapper.Map<Model.DTO.Player>(x))
                 .ToListAsync();
@@ -99,7 +100,7 @@ namespace SportsTeams.Services
                     .Where(x => q == null || x.Name.Contains(q))
                     .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                     .Take(pageParameters.PageSize)
-                    .OrderBy(o => o.Team.Name)
+                    .OrderBy(o => o.MarketValue)
                     .ThenBy(o => o.Name)
                     .Select(x => _mapper.Map<Model.DTO.Player>(x))
                     .ToListAsync();

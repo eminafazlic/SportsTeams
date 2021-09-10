@@ -55,12 +55,13 @@ namespace SportsTeams.Services
 
         public async Task<IEnumerable<Model.Country>> GetAllCountriesSortedById(PageParameters pageParameters, string q = null)
         {
+            //zapravo order by br stanovnika
             _logger.LogInformation($"Izvršava se {nameof(GetAllCountries)} metoda sa modelom {nameof(PageParameters)} i parametrima {nameof(pageParameters.PageNumber)} {pageParameters.PageNumber} i {nameof(pageParameters.PageNumber)} {pageParameters.PageSize}");
             var list = await _appDbContext.Countries
                 .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
-                .OrderBy(o => o.Id)
+                .OrderByDescending(o => o.Population)
                 .Select(x => _mapper.Map<Model.Country>(x))
                 .ToListAsync();
             /*if (list.Count == 0)
