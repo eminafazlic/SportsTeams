@@ -119,8 +119,9 @@ namespace SportsTeams.Services
                 .Where(x => q == null || x.Name.Contains(q))
                 .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                 .Take(pageParameters.PageSize)
-                .OrderBy(o => o.Country.Name)
-                .ThenBy(o => o.Name)
+                .OrderBy(o => o.Id)
+                //.OrderBy(o => o.Country.Name)
+                //.ThenBy(o => o.Name)
                 .Select(x => _mapper.Map<Model.DTO.Player>(x))
                 .ToListAsync();
                 return list;
@@ -141,8 +142,9 @@ namespace SportsTeams.Services
                     .Where(x => q == null || x.Name.Contains(q))
                     .Skip((pageParameters.PageNumber - 1) * pageParameters.PageSize)
                     .Take(pageParameters.PageSize)
-                    .OrderBy(o => o.Country.Name)
-                    .ThenBy(o => o.Name)
+                    //.OrderBy(o => o.Country.Name)
+                    //.ThenBy(o => o.Name)
+                    .OrderBy(o => o.Id)
                     .Select(x => _mapper.Map<Model.DTO.Player>(x))
                     .ToListAsync();
                 return list;
