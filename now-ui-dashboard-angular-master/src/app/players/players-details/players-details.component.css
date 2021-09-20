@@ -1,0 +1,42 @@
+
+
+.container{
+   margin-top: 100px;
+  width: 500px;
+  border-style: groove;
+ text-align: center;
+
+}
+span{
+   font-size: large;
+   margin-left: 10px;
+   color:rgb(122, 122, 199);
+}
+.row{
+   margin-top: 30px;
+   text-align: center;
+
+}
+h4{
+   color:black;
+  /*  padding-left: 130px; */
+  padding-left:50px;
+}
+.button{
+   margin-left: 120px;
+}
+/* img{
+   padding-left: 50px;
+   display: block;
+   margin: 0 auto;
+
+
+} */
+.image-cover{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+   margin-left:150px ;
+}
+
+

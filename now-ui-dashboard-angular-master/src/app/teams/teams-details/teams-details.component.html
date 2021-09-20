@@ -1,0 +1,58 @@
+
+
+  <div class="container" *ngIf="team">
+    <div class="row">
+         <div class="col-xs-12">
+
+            <img src="{{team.picture}}" class="img-responsive image-cover">
+        </div>
+    </div>
+
+    <div class="row">
+        <h4>NAZIV TIMA: <span > {{team.name}}</span>  </h4>
+
+    </div>
+    <div class="row">
+
+           <h4>DRŽAVA: <span>{{team.country.name}}</span></h4>
+        </div>
+    <div class="row">
+
+           <h4>GODINA OSNIVANJA: <span>{{team.founded}}</span></h4>
+
+    </div>
+    <div class="row">
+
+           <h4>DOMAĆI STADION: <span>{{team.homeGround}}</span></h4>
+
+    </div>
+    <div class="row">
+           <h4>KAPACITET STADIONA: <span>{{team.stadiumCapacity}}</span></h4>
+        </div>
+
+    <div class="row">
+
+           <h4>TRŽIŠNA VRIJEDNOST: <span>{{team.marketValue}}</span></h4>
+    </div>
+    <div class="row">
+
+   <a clearfix (click)="players(team.id)" routerLinkActive="active"> <h4>BROJ IGRAČA: <span>{{team.numberOfPlayers}}</span></h4></a>
+    </div>
+    <div class="row">
+
+           <h4>TRENER: <span>{{team.headCoach}}</span></h4>
+    </div>
+    <div class="row">
+
+           <h4>PREDSJEDNIK KLUBA: <span>{{team.president}}</span></h4>
+
+    </div>
+    <div class="row">
+           <h4>TRENUTNA LIGA: <span>{{team.league}}</span></h4>
+
+    </div>
+    <div class="button">
+        <button class="btn btn-success" (click)="onEditTeam()">Uredi</button>
+        <button class="btn btn-danger" (click)="onDeleteTeam(team.Id)">Obriši</button>
+    </div>
+    </div>

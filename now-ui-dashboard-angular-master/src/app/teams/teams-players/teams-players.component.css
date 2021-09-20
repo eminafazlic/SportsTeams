@@ -1,0 +1,19 @@
+.container{
+
+  border-style: groove;
+}
+
+a{
+  text-decoration: none;
+}
+h3{
+  padding-top: 50px;
+}
+h5{
+  padding-left: 30px;
+}
+.image-cover{
+  width: 100px;
+  height: 115px;
+  object-fit: cover;
+}

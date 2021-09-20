@@ -1,0 +1,23 @@
+ <div class="container">
+  <div class="row">
+<!--     <div class="md-form">
+      <input type="search" [(ngModel)]="searchText" placeholder="Search text">
+    </div>
+    <ul *ngFor="let player of Player | filter: searchText">
+      <li>{{player}}</li>
+    </ul> -->
+
+    <div class="button">
+    <button class="btn btn-primary" (click)="getSortByName()" >SORT BY NAME</button>
+    <button class="btn btn-primary" (click)="getSortByID()" >SORT BY MARKET VALUE</button>
+  </div>
+    <div class="row">
+        <div class="col-md-5">
+          <app-players-list [list]="Player"></app-players-list>
+        </div>
+        <div class="col-md-7">
+
+        <router-outlet></router-outlet>
+    </div>
+
+    </div>

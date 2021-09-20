@@ -1,0 +1,40 @@
+
+
+.container{
+   border-style: groove;
+
+}
+span{
+    font-size: large;
+    margin-left: 10px;
+    color:rgb(122, 122, 199);
+}
+.row{
+    margin-top: 30px;
+    text-align: center;
+
+}
+h4{
+    color:black;
+    padding-left: 130px;
+}
+.button{
+    margin-left: 150px;
+}
+/* img{
+     padding-left: 200px;
+    display: block;
+    margin: 0 auto;
+
+} */
+.image-cover{
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+   margin-left:150px ;
+}
+a{
+  color:red;
+}
+
+

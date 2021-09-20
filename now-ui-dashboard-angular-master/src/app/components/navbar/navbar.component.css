@@ -1,0 +1,14 @@
+.nav-item{
+    padding-left: 150px; font-size: 30px; margin-top: 20px;
+}
+
+button{
+  cursor: pointer;
+  text-align: center;
+
+
+}
+.dark{
+  background-color: #222;
+  color: #e6e6e6;
+}

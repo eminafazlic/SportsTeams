@@ -1,0 +1,18 @@
+<div class="container" >
+<div class="row w-100 flex-column mt-2 mb-2 m-0" *ngFor="let player of players">
+
+    <a style="cursor: pointer" class="w-100 list-group-item" clearfix routerLink={{player.id}} routerLinkActive="active">
+      <div class="row">
+        <div class="col-8 d-flex flex-column" style="padding-left: 20px;">
+          <h2 class="list-group-item-heading">{{player.name}}</h2>
+          <h4 class="list-group-item-heading">BROJ DRESA:  {{player.number}}</h4>
+        </div>
+
+        <div class="col-4 d-flex justify-content-end">
+          <img src="{{player.picture}}" alt="{{player.name}}" class="img-responsive image-cover">
+        </div>
+
+      </div>
+    </a>
+  </div>
+</div>

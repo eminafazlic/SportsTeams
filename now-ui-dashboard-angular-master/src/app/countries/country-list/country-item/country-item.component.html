@@ -1,0 +1,15 @@
+
+       <a class="list-group-item" style="cursor: pointer;" clearfix
+routerLink={{country.id}} routerLinkActive="active"
+>
+<div class="row">
+    <div class="col-9 d-flex flex-column">
+        <h4 class="list-group-item-heading">{{country.name}}</h4>
+    <p class="list-group-item-text">{{country.abbreviation}}</p>
+    </div>
+ 
+    <span class="col-3 d-flex justify-content-end">
+        <img src="{{country.picture}}" alt="{{country.name}}" class="img-responsive" style="max-height: 50px;">
+    </span>
+  </div>
+</a>

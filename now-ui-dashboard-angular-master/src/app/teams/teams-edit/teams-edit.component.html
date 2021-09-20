@@ -1,0 +1,103 @@
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="teamsForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="name">NAZIV TIMA:</label>
+                                <input type="text" id="name" class="form-control"
+                                formControlName="name">
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-12 form-group">
+                                    <label for="picture">IMAGE URL :</label>
+                                    <input type="text" id="picture" class="form-control"
+                                    formControlName="picture"
+                                    #picture>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                  <img [src]="picture.value" class="img-responsive">
+                               </div>
+
+                       </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="countryId">DRŽAVA :</label>
+                                <select class="form-control" formControlName="countryId" placeholder="DRŽAVA">
+                                  <option [ngValue]="null" disabled>DRŽAVA</option>
+                                  <option [ngValue]="country.id" *ngFor="let country of countries; let i = index">{{ country.name }}</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="founded">OSNOVAN :</label>
+                                <input type="number" id="founded" class="form-control"
+                                formControlName="founded">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="homeGround">DOMAĆI STADION :</label>
+                                <input type="text" id="homeGround" class="form-control"
+                                formControlName="homeGround">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="stadiumCapacity">KAPACITET STADIONA :</label>
+                                <input type="text" id="stadiumCapacity" class="form-control"
+                                formControlName="stadiumCapacity">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="marketValue">TRŽIŠNA VRIJEDNOST :</label>
+                                <input type="text" id="marketValue" class="form-control"
+                                formControlName="marketValue">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="numberOfPlayers">BROJ IGRAČA :</label>
+                                <input type="number" id="numberOfPlayers" class="form-control"
+                                formControlName="numberOfPlayers">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="headCoach">TRENER :</label>
+                                <input type="text" id="headCoach" class="form-control"
+                                formControlName="headCoach">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="president">PREDSJEDNIK KLUBA :</label>
+                                <input type="text" id="president" class="form-control"
+                                formControlName="president">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="league">TRENUTNA LIGA :</label>
+                                <input type="text" id="league" class="form-control"
+                                formControlName="league">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <button type="submit" class="btn btn-success">SAVE</button>
+                                <button type="button" class="btn btn-danger"  (click)="onCancel()">CANCEL</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            </div>
+

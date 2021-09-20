@@ -1,0 +1,24 @@
+
+
+<div class="row">
+    <app-country-item class="w-100" *ngFor="let  listItem of list | paginate
+    : {
+        itemsPerPage: itemsPerPage,
+        currentPage: page,
+        totalItems: totalItems
+      } ; let i=index;"
+        [country]="listItem"
+        [index]="i"></app-country-item>
+</div>
+
+<hr>
+<pagination-controls
+class="pagi"
+(pageChange)="(page = $event)"
+></pagination-controls>
+<div class="row">
+
+        <button class="btn btn-success" (click)="AddCountry()" style="margin-left: 150px;">DODAJ DRŽAVU</button>
+
+</div>
+

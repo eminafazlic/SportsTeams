@@ -1,0 +1,22 @@
+
+<div class="logo" >
+    <a href="https://www.cor-net.net/" class="simple-text logo-mini" >
+    <!--   <div class="logo-img">
+          <img src="./assets/img/logo.png" style="height:1005;width:100%!important;"/>
+
+      </div> -->
+    </a>
+    <a href="/dashboard" class="simple-text logo-normal" style="padding-top:43px;padding-bottom: 30px;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: large;">
+        SPORT TEAMS
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems"   class="nav-item">
+            <a (click)="teams(menuItem.id)" style="cursor: pointer;">
+                <img src="{{menuItem.picture}}" alt=""style="height:30px;width:50px;display:inline; border:1px solid white">
+                <p style="display:inline; margin-left: 5px;">{{menuItem.name}}</p>
+            </a>
+        </li>
+    </ul>
+</div>

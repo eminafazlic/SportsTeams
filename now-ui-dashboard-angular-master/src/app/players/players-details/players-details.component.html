@@ -1,0 +1,63 @@
+
+
+  <div class="container" *ngIf="player">
+    <div class="row">
+         <div class="col-xs-12">
+
+            <img src="{{player.picture}}" class="img-responsive image-cover">
+        </div>
+    </div>
+
+    <div class="row">
+        <h4>IME I PREZIME IGRAČA: <span > {{player.name}}</span>  </h4>
+
+    </div>
+    <div class="row">
+
+           <h4>BROJ DRESA: <span>{{player.number}}</span></h4>
+        </div>
+    <div class="row">
+
+           <h4>DATUM ROĐENJA: <span>{{datumRodjenja}}</span></h4>
+
+    </div>
+    <div class="row">
+
+           <h4>GRAD ROĐENJA: <span>{{player.placeOfBirth}}</span></h4>
+
+    </div>
+    <div class="row">
+           <h4>GODINE: <span>{{player.age}}</span></h4>
+        </div>
+
+    <div class="row">
+
+           <h4>DRŽAVLJANSTVO: <span>{{player.country.name}}</span></h4>
+    </div>
+    <div class="row">
+
+           <h4>CIJENA: <span>{{player.marketValue}}</span></h4>
+
+    </div>
+    <div class="row">
+
+           <h4>POZICIJA: <span>{{player.position}}</span></h4>
+    </div>
+    <div class="row">
+
+           <h4>TRENUTNI KLUB: <span>{{player.team.name}}</span></h4>
+
+    </div>
+    <div class="row">
+           <h4> PRIDRUŽIO SE: <span>{{datumPridruzivanja}}</span></h4>
+
+    </div>
+    <div class="row">
+    <h4> DATUM ISTEKA UGOVORA: <span>{{datumIstekaUgovora}}</span></h4>
+
+</div>
+    <div class="button">
+        <button class="btn btn-success" (click)="onEditPlayer()">Uredi</button>
+        <button class="btn btn-danger" (click)="onDeletePlayer(player.id)">Obriši</button>
+    </div>
+    </div>

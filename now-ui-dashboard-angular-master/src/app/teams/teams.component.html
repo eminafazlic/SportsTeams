@@ -1,0 +1,19 @@
+
+ <div class="container">
+  <div class="row">
+    <div class="button">
+    <button class="btn btn-primary" (click)="getSortByName()" >SORT BY NAME</button>
+    <button class="btn btn-primary" (click)="getSortByID()" >SORT BY MARKET VALUE</button>
+  </div>
+    <div class="row">
+        <div class="col-md-5">
+            <app-teams-list [list]="Teams"></app-teams-list>
+        </div>
+        <div class="col-md-7">
+
+        <router-outlet></router-outlet>
+    </div>
+
+    </div>
+
+

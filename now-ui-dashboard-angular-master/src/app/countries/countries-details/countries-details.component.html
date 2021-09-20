@@ -1,0 +1,30 @@
+
+
+<div class="container" *ngIf="country">
+  <div class="row">
+      <div class="col-12">
+          <img src="{{country.picture}}"class="img-responsive image-cover" >
+      </div>
+  </div>
+  <div class="row">
+      <h4>NAZIV DRŽAVE: <span > {{country.name}}</span>  </h4>
+
+  </div>
+  <div class="row">
+         <h4>SKRAĆENICA: <span>{{country.abbreviation}}</span></h4>
+      </div>
+  <div class="row">
+         <h4>GLAVNI GRAD: <span>{{country.capital}}</span></h4>
+  </div>
+  <div class="row">
+      <h4>BROJ STANOVNIKA:  <span>{{country.population}}</span></h4>
+  </div>
+
+
+    <div class="button">
+      <button class="btn btn-success" (click)="EditCountry()">Uredi</button>
+      <button class="btn btn-danger" (click)="onDeleteCountry(country.id)">Obriši</button>
+
+  </div>
+
+  </div>

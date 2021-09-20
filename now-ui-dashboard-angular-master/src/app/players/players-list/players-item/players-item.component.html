@@ -1,0 +1,14 @@
+
+<a style="cursor: pointer"class="list-group-item" clearfix routerLink={{player.id}} routerLinkActive="active">
+  <div class="row" >
+    <div class="col-9 d-flex flex-column">
+      <h4 class="list-group-item-heading">{{player.name}}</h4>
+    </div>
+    <div class="col-3 d-flex justify-content-end">
+      <img src="{{player.picture}}" alt="{{player.name}}" class="img-responsive" style="max-height: 100px;">
+    </div>
+    </div>
+    <div class="row" *ngIf="player">
+      <h5>{{player.team.name}}</h5>
+  </div>
+</a>

@@ -1,0 +1,18 @@
+
+<div  class="container">
+<div  *ngFor="let team of teams">
+
+  <a style="cursor: pointer" class="list-group-item" clearfix [routerLink]="['/teams', team.id]"
+    routerLinkActive="active">
+    <div class="row">
+      <div class="col-9 d-flex flex-column">
+        <h4 class="list-group-item-heading">{{team.name}}</h4>
+        <!--       <p class="list-group-item-text">{{team.countryId}}</p> -->
+      </div>
+      <div class="col-3 d-flex justify-content-end">
+        <img src="{{team.picture}}" alt="{{team.name}}" class="img-responsive" style="max-height: 100px;">
+      </div>
+    </div>
+  </a>
+</div>
+</div>

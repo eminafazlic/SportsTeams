@@ -1,0 +1,113 @@
+
+        <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <form [formGroup]="playersForm" (ngSubmit)="onSubmit()">
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="name">IME I PREZIME IGRAČA:</label>
+                              <input type="text" id="name" class="form-control"
+                              formControlName="name">
+                          </div>
+                      </div>
+                      <div class="row">
+                           <div class="col-12 form-group">
+                                  <label for="picture">SLIKA :</label>
+                                  <input type="text" id="picture" class="form-control"
+                                  formControlName="picture"
+                                  #picture>
+                              </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                                <img [src]="picture.value" class="img-responsive">
+                             </div>
+
+                     </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="number">BROJ DRESA :</label>
+                              <input type="text" id="number" class="form-control"
+                              formControlName="number">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="dateOfBirth">DATUM ROĐENJA :</label>
+                              <input type="date" id="dateOfBirth" class="form-control"
+                              formControlName="dateOfBirth">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="placeOfBirth">GRAD ROĐENJA :</label>
+                              <input type="text" id="placeOfBirth" class="form-control"
+                              formControlName="placeOfBirth">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="age">GODINE :</label>
+                              <input type="number" id="age" class="form-control"
+                              formControlName="age">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="countryId">DRŽAVA :</label>
+                              <select class="form-control" formControlName="countryId" placeholder="DRŽAVA">
+                                <option [ngValue]="null" disabled>DRŽAVA</option>
+                                <option [ngValue]="country.id" *ngFor="let country of countries; let i = index">{{ country.name }}</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="marketValue">CIJENA :</label>
+                              <input type="number" id="marketValue" class="form-control"
+                              formControlName="marketValue">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="position">POZICIJA :</label>
+                              <input type="text" id="position" class="form-control"
+                              formControlName="position">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="teamId">TRENUTNI KLUB :</label>
+
+                              <select class="form-control" formControlName="teamId" placeholder="Tim">
+                                <option [ngValue]="null" disabled>TIM:</option>
+                                <option [ngValue]="team.id" *ngFor="let team of teams; let i = index">{{ team.name }}</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <label for="joined">PRIDRUŽIO SE :</label>
+                              <input type="date" id="joined" class="form-control"
+                              formControlName="joined">
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 form-group">
+                            <label for="constractExpDate"> DATUM ISTEKA UGOVORA:</label>
+                            <input type="date" id="constractExpDate" class="form-control"
+                            formControlName="constractExpDate">
+                        </div>
+                    </div>
+                      <div class="row">
+                          <div class="col-12 form-group">
+                              <button type="submit" class="btn btn-success">SAVE</button>
+                              <button type="button" class="btn btn-danger"  (click)="onCancel()">CANCEL</button>
+                          </div>
+                      </div>
+                  </form>
+
+              </div>
+          </div>
+          </div>
+
